@@ -67,7 +67,8 @@
               "buildTarget": "sharkbox-frontend-angular:build:production"
             },
             "development": {
-              "buildTarget": "sharkbox-frontend-angular:build:development"
+              "buildTarget": "sharkbox-frontend-angular:build:development",
+              "proxyConfig": "src/proxy.conf.json"
             }
           },
           "defaultConfiguration": "development"
