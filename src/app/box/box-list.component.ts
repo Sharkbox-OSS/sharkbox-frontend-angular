@@ -3,7 +3,6 @@ import { BoxService } from "./box.service";
 import { JsonPipe } from "@angular/common";
 
 @Component({
-  selector: 'app-box-list',
   imports: [JsonPipe],
   template: `
     <div>Boxes</div>
