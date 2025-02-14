@@ -11,19 +11,23 @@ export const httpLoaderFactory = (httpClient: HttpClient) => {
           authority: customConfig.stsServer,
           clientId: customConfig.clientId,
           redirectUrl: window.location.origin,
+          autoUserInfo: true,
+          ngswBypass: true,
           responseType: 'code',
           scope: 'openid email profile',
           postLogoutRedirectUri: window.location.origin,
           startCheckSession: true,
           silentRenew: true,
+          useRefreshToken: true,
+          ignoreNonceAfterRefresh: true,
           silentRenewUrl: `${window.location.origin}/silent-renew.html`,
           postLoginRoute: '/dashboard',
           forbiddenRoute: '/home',
           unauthorizedRoute: '/home',
-          logLevel: LogLevel.Debug,
-          maxIdTokenIatOffsetAllowedInSeconds: 10,
+          logLevel: LogLevel.Warn,
+          maxIdTokenIatOffsetAllowedInSeconds: 3600,
           historyCleanupOff: true,
-          secureRoutes: [ '/api/' ]
+          secureRoutes: [ '/api' ]
         };
       })
     );
