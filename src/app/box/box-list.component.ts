@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { BoxService } from "./box.service";
+import { Box, BoxService } from "./box.service";
 import { JsonPipe } from "@angular/common";
 
 @Component({
@@ -10,7 +10,7 @@ import { JsonPipe } from "@angular/common";
   `
 })
 export class BoxListComponent implements OnInit {
-  boxes: any[] = [];
+  boxes: Box[] = [];
 
   constructor(private boxService: BoxService) {}
 
