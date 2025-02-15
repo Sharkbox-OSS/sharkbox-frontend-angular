@@ -4,9 +4,10 @@ import { TitleService } from "../common/title.service";
 
 @Component({
   template: `
-    <div>Box</div>
-    {{ box?.description }}
-    <br/>
+    <h1>{{ box?.name }}</h1>
+    <div>
+      {{ box?.description }}
+    </div>
   `
 })
 export class BoxComponent implements OnInit {

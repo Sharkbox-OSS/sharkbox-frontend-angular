@@ -1,29 +1,21 @@
 import { Component, OnInit } from "@angular/core";
-import { Box, BoxService } from "../box/box.service";
-import { NgFor } from "@angular/common";
+import { Box } from "../box/box.service";
 import { TitleService } from "../common/title.service";
-import { RouterLink } from "@angular/router";
+import { BoxListComponent } from "../box/box-list.component";
 
 @Component({
-  imports: [NgFor, RouterLink],
+  imports: [BoxListComponent],
   template: `
-    <h1>Dashboard</h1>
-    <div *ngFor="let box of boxes">
-      <h2><a [routerLink]="['/box', box.slug]">{{ box.name }}</a></h2>
-      <p>{{ box.description }}</p>
-    </div>
+    <app-box-list></app-box-list>
   `
 })
 export class DashboardComponent implements OnInit {
 
   public boxes: Box[] = [];
 
-  constructor(private titleService: TitleService, private boxService: BoxService) {}
+  constructor(private titleService: TitleService) {}
 
   ngOnInit(): void {
-    this.boxService.retrieveBoxes().subscribe(boxes => {
-      this.boxes = boxes;
-      this.titleService.setTitle('Dashboard');
-    });
+    this.titleService.setTitle('Dashboard');
   }
 }

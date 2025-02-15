@@ -1,23 +1,34 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, inject, OnInit, signal } from "@angular/core";
 import { Box, BoxService } from "./box.service";
-import { JsonPipe } from "@angular/common";
+import { RouterLink } from "@angular/router";
+import { NgFor, NgIf } from "@angular/common";
+import { DataViewModule } from "primeng/dataview";
 
 @Component({
-  imports: [JsonPipe],
+  selector: 'app-box-list',
+  imports: [NgFor, NgIf, RouterLink, DataViewModule],
   template: `
-    <div>Boxes</div>
-    {{ boxes | json }}
+    <p-dataview #dv [value]="boxes()" [paginator]="true" [rows]="5">
+      <ng-template #list let-items>
+        <div *ngFor="let item of items; let last = last">
+          <h2>
+            <a [routerLink]="['/box', item.slug]">{{ item.name }}</a>
+          </h2>
+          <p>{{ item.description }}</p>
+          <hr *ngIf="!last" />
+        </div>
+      </ng-template>
+    </p-dataview>
   `
 })
 export class BoxListComponent implements OnInit {
-  boxes: Box[] = [];
+  boxes = signal<Box[]>([]);
 
-  constructor(private boxService: BoxService) {}
+  boxService = inject(BoxService);
 
   ngOnInit(): void {
     this.boxService.retrieveBoxes().subscribe(boxes => {
-      console.log(boxes);
-      this.boxes = boxes;
+      this.boxes.set(boxes);
     });
   }
 }
