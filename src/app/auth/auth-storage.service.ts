@@ -11,6 +11,7 @@ export class AuthStorageService implements AbstractSecurityStorage {
     return localStorage.getItem(key);
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   write(key: string, value: any): void {
     localStorage.setItem(key, value);
   }

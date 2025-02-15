@@ -4,9 +4,9 @@ import { map } from 'rxjs/operators';
 
 export const httpLoaderFactory = (httpClient: HttpClient) => {
   const config$ = httpClient
-    .get<any>(`/api/v1/auth/config`)
+    .get<AuthConfig>(`/api/v1/auth/config`)
     .pipe(
-      map((customConfig: any) => {
+      map((customConfig: AuthConfig) => {
         return {
           authority: customConfig.stsServer,
           clientId: customConfig.clientId,
@@ -41,4 +41,9 @@ export const authConfig: PassedInitialConfig = {
     useFactory: httpLoaderFactory,
     deps: [HttpClient],
   }
+}
+
+export interface AuthConfig {
+  stsServer: string;
+  clientId: string;
 }

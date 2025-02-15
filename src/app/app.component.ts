@@ -34,6 +34,6 @@ export class AppComponent implements OnInit {
   logout() {
     this.oidcSecurityService
       .logoffAndRevokeTokens()
-      .subscribe(() => {});
+      .subscribe();
   }
 }
