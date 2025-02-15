@@ -2,13 +2,14 @@ import { Component, OnInit } from "@angular/core";
 import { Box, BoxService } from "../box/box.service";
 import { NgFor } from "@angular/common";
 import { TitleService } from "../common/title.service";
+import { RouterLink } from "@angular/router";
 
 @Component({
-  imports: [NgFor],
+  imports: [NgFor, RouterLink],
   template: `
     <h1>Dashboard</h1>
     <div *ngFor="let box of boxes">
-      <h2>{{ box.name }}</h2>
+      <h2><a [routerLink]="['/box', box.slug]">{{ box.name }}</a></h2>
       <p>{{ box.description }}</p>
     </div>
   `
