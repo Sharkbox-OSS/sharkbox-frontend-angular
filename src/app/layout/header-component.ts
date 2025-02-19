@@ -2,24 +2,21 @@ import { NgIf } from "@angular/common";
 import { Component, inject, OnInit } from "@angular/core";
 import { RouterLink } from "@angular/router";
 import { OidcSecurityService } from "angular-auth-oidc-client";
-import { MenubarModule } from "primeng/menubar";
-import { ButtonModule } from "primeng/button";
 
 @Component({
   selector: 'app-header',
-  imports: [NgIf, RouterLink, MenubarModule, ButtonModule],
+  imports: [NgIf, RouterLink],
   template: `
-    <header>
-      <p-menubar>
-        <ng-template #start>
-          <p-button routerLink="/dashboard" label="Sharkbox" text plain />
-        </ng-template>
-
-        <ng-template #end>
-          <p-button *ngIf="!isAuthenticated" (click)="login()" label="Login" size="small" severity="contrast" />
-          <p-button *ngIf="isAuthenticated" (click)="logout()" label="Logout" size="small" severity="contrast" />
-        </ng-template>
-      </p-menubar>
+    <header class="bg-white dark:bg-black">
+      <nav>
+        <div class="flex flex-wrap justify-between items-center mx-auto">
+          <a routerLink="/dashboard" class="text-gray-900 dark:text-white">Sharkbox</a>
+          <div class="flex">
+            <button *ngIf="!isAuthenticated" class="cursor-pointer text-black dark:text-white" (click)="login()">Login</button>
+            <button *ngIf="isAuthenticated" class="cursor-pointer text-black dark:text-white" (click)="logout()">Logout</button>
+          </div>
+        </div>
+      </nav>
     </header>
   `
 })
