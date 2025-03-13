@@ -3,7 +3,7 @@ import { Component } from "@angular/core";
 @Component({
   selector: 'app-footer',
   template: `
-    <footer>
+    <footer class="bg-white dark:bg-black text-gray-900 dark:text-white">
       &copy; Sharkbox
     </footer>
   `
