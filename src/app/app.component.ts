@@ -8,7 +8,9 @@ import { FooterComponent } from './layout/footer-component';
   imports: [RouterOutlet, HeaderComponent, FooterComponent],
   template: `
     <app-header></app-header>
-    <router-outlet />
+    <section role="main" class="p-4">
+      <router-outlet />
+    </section>
     <app-footer></app-footer>
   `
 })

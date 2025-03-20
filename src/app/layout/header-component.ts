@@ -7,7 +7,7 @@ import { OidcSecurityService } from "angular-auth-oidc-client";
   selector: 'app-header',
   imports: [NgIf, RouterLink],
   template: `
-    <header class="bg-white dark:bg-black">
+    <header class="bg-white dark:bg-black p-2">
       <nav>
         <div class="flex flex-wrap justify-between items-center mx-auto">
           <a routerLink="/dashboard" class="text-gray-900 dark:text-white">Sharkbox</a>

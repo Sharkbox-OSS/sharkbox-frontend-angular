@@ -1,20 +1,20 @@
 import { HttpClient } from "@angular/common/http";
-import { Injectable } from "@angular/core";
+import { inject, Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 
 @Injectable({
   providedIn: 'root'
 })
 export class BoxService {
-  constructor(private http: HttpClient) {
-  }
+
+  httpClient = inject(HttpClient);
 
   retrieveBoxes(): Observable<Box[]> {
-    return this.http.get<Box[]>('/api/v1/box');
+    return this.httpClient.get<Box[]>('/api/v1/box');
   }
 
   retrieveBox(slug: string): Observable<Box> {
-    return this.http.get<Box>(`/api/v1/box/${slug}`);
+    return this.httpClient.get<Box>(`/api/v1/box/${slug}`);
   }
 }
 

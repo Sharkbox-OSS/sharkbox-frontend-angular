@@ -1,29 +1,33 @@
-import { Component, inject, OnInit, signal } from "@angular/core";
-import { Box, BoxService } from "./box.service";
-import { RouterLink } from "@angular/router";
-import { NgFor, NgIf } from "@angular/common";
+import { Component, inject } from "@angular/core";
+import { BoxService } from "./box.service";
+import { Router } from "@angular/router";
+import { AsyncPipe, NgFor } from "@angular/common";
 
 @Component({
   selector: 'app-box-list',
-  imports: [NgFor, NgIf, RouterLink],
+  imports: [NgFor, AsyncPipe],
   template: `
-    <div *ngFor="let item of boxes(); let last = last">
-      <h2>
-        <a [routerLink]="['/box', item.slug]">{{ item.name }}</a>
-      </h2>
-      <p>{{ item.description }}</p>
-      <hr *ngIf="!last" />
+    <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      <div
+        *ngFor="let box of boxes | async"
+        class="rounded-lg ring-2 ring-black bg-white dark:bg-gray-800 p-4 text-gray-900 dark:text-white cursor-pointer"
+        tabindex="0"
+        role="button"
+        (keydown.enter)="goToBox(box.slug)"
+        (click)="goToBox(box.slug)"
+      >
+        <p class="font-bold">{{ box.name }}</p>
+        <p class="text-sm">{{ box.description }}</p>
+      </div>
     </div>
   `
 })
-export class BoxListComponent implements OnInit {
-  boxes = signal<Box[]>([]);
+export class BoxListComponent {
+  readonly boxService = inject(BoxService);
+  readonly router = inject(Router);
+  readonly boxes = this.boxService.retrieveBoxes();
 
-  boxService = inject(BoxService);
-
-  ngOnInit(): void {
-    this.boxService.retrieveBoxes().subscribe(boxes => {
-      this.boxes.set(boxes);
-    });
+  goToBox(slug: string) {
+    this.router.navigate(['/box', slug]);
   }
 }
