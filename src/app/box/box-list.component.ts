@@ -2,10 +2,12 @@ import { Component, inject } from "@angular/core";
 import { BoxService } from "./box.service";
 import { Router } from "@angular/router";
 import { AsyncPipe } from "@angular/common";
+import { OidcSecurityService } from "angular-auth-oidc-client";
+import { BoxFormComponent } from "./box-form.component";
 
 @Component({
   selector: 'app-box-list',
-  imports: [AsyncPipe],
+  imports: [AsyncPipe, BoxFormComponent],
   template: `
     <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
       @for (box of boxes | async; track box) {
@@ -21,11 +23,15 @@ import { AsyncPipe } from "@angular/common";
         </div>
       }
     </div>
-    `
+    @if ((oidcSecurityService.isAuthenticated$ | async)?.isAuthenticated) {
+      <app-box-form></app-box-form>
+    }
+  `
 })
 export class BoxListComponent {
-  readonly boxService = inject(BoxService);
-  readonly router = inject(Router);
+  private readonly boxService = inject(BoxService);
+  private readonly router = inject(Router);
+  readonly oidcSecurityService = inject(OidcSecurityService);
   readonly boxes = this.boxService.retrieveBoxes();
 
   goToBox(slug: string) {
