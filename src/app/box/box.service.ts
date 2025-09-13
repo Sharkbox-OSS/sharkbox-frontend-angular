@@ -17,7 +17,7 @@ export class BoxService {
     return this.httpClient.get<Box>(`/api/v1/box/${slug}`);
   }
 
-  createBox(name: string | null | undefined, slug: string | null | undefined, description: string | null | undefined, access = 'PUBLIC'): Observable<Box> {
+  createBox(name: string | null, slug: string | null, description: string | null, access = 'PUBLIC'): Observable<Box> {
     return this.httpClient.post<Box>('/api/v1/box', {
       name,
       slug,
